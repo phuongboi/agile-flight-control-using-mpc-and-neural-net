@@ -6,7 +6,7 @@
 
 ### Update
 * [03/02/2023] Initial commit
-*** Project is updating and reorganizing ***
+* Project is updating and reorganizing
 ### Simulation
 
 ![alt text](https://github.com/phuongboi/agile-flight-control-using-MPC-and-neural-net/blob/main/high_MPC/MPC/saved/output.gif)
@@ -14,11 +14,11 @@
 ### How to use
 * Run `pip install -e` to install packages
 * Check out file `run_supervise.py` to start the pipeline:
-** STEP 1 : Collecting data: `data_collect = True`
-** STEP 2 : Training model: `training = True`
-** STEP 3 : Running experiment: `run = True`
+* STEP 1 : Collecting data: `data_collect = True`
+*  STEP 2 : Training model: `training = True`
+*  STEP 3 : Running experiment: `run = True`
 
 ### References
-[1] Song, Yunlong, and Davide Scaramuzza. "Policy search for model predictive control with application to agile drone flight." IEEE Transactions on Robotics 38.4 (2022): 2114-2130.
-[2] Song, Yunlong, and Davide Scaramuzza. "Learning high-level policies for model predictive control." 2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020.
-[3] https://github.com/uzh-rpg/high_mpc
+* [1] Song, Yunlong, and Davide Scaramuzza. "Policy search for model predictive control with application to agile drone flight." IEEE Transactions on Robotics 38.4 (2022): 2114-2130.
+* [2] Song, Yunlong, and Davide Scaramuzza. "Learning high-level policies for model predictive control." 2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020.
+* [3] https://github.com/uzh-rpg/high_mpc
