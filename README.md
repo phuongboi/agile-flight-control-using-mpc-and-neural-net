@@ -1,5 +1,5 @@
 ## Agile flight control using model predictive control and neural network
-* In this project, I trained a neural net imitating a MPC to control a quacotper fly through a moving gate
+* In this project, I trained a neural net imitating a MPC to control a quadcopter fly through a moving gate
 * The project is based on previous work [1], [2]. In that work, author used traversal time as a high level decision variable (z) to improve MPC and used a neural network to learning traversal time from observation.
 * In this work, I used a neural network to learn control output (thrust and 3 body rate) from observation. I run step-based simulation to collect data which include observation states and respective control output of MPC, I collected about 20000 samples and saved as a dataset for supervised learning. I built a simple neural net to train collected dataset. The neural network successfully learning to regress control values with low MSE error.
 * The project baseline is based on [high-mpc](https://github.com/uzh-rpg/high_mpc)
