@@ -9,7 +9,7 @@
 * Project is updating and reorganizing
 ### Simulation
 
-![alt text](https://github.com/phuongboi/agile-flight-control-using-MPC-and-neural-net/blob/main/high_MPC/MPC/saved/output.gif)
+![alt text](https://github.com/phuongboi/agile-flight-control-using-mpc-and-neural-net/blob/main/high_mpc/mpc/saved/output.gif)
 
 ### How to use
 * Run `pip install -e` to install packages
