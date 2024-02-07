@@ -10,7 +10,7 @@
 * Project is updating and reorganizing
 ### Simulation
 #### Update result, 07/03/2024
-![alt text](https://github.com/phuongboi/agile-flight-control-using-mpc-and-neural-net/blob/main/high_mpc/mpc/saved/output.gif)
+![alt text](https://github.com/phuongboi/agile-flight-control-using-mpc-and-neural-net/blob/main/high_mpc/mpc/saved/output2.gif)
 #### Init result, 03/02/2024
 ![alt text](https://github.com/phuongboi/agile-flight-control-using-mpc-and-neural-net/blob/main/high_mpc/mpc/saved/output.gif)
 
