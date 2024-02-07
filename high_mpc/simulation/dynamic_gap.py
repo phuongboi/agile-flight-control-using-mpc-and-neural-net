@@ -80,7 +80,7 @@ class DynamicGap(object):
         obs = (quad_obs - pend_obs).tolist()
         obs2 = quad_obs.tolist() + pend_obs.tolist()
 
-        return obs
+        return obs2
 
     def step(self, u=0):
         self.t += self.sim_dt
@@ -165,7 +165,7 @@ class DynamicGap(object):
         if self.t >= (self.sim_T-self.sim_dt):
             done = True
 
-        return obs, quad_act[:, 0].tolist(), done, info
+        return obs2, quad_act[:, 0].tolist(), done, info
 
     def step_nn(self,u=0, pred_act=None):
         self.t += self.sim_dt
@@ -181,8 +181,8 @@ class DynamicGap(object):
 
         # run nonliear model predictive control
         quad_act , pred_traj = self.mpc.solve(ref_traj)
-        print("pred", pred_act)
-        print("action",quad_act)
+        # print("pred", pred_act)
+        # print("action",quad_act)
 
         # run the actual control command on the quadrotor
 
@@ -210,7 +210,7 @@ class DynamicGap(object):
         if self.t >= (self.sim_T-self.sim_dt):
             done = True
 
-        return obs, 0, done, info
+        return obs2, 0, done, info
 
 
     def step_reinforce(self, ppo_ctr):

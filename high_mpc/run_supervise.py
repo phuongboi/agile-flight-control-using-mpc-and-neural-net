@@ -19,6 +19,8 @@ from torch.utils.data import DataLoader
 from torch import nn
 import torch
 
+import argparse
+
 
 def data_collection():
     state_dim = 9
@@ -27,18 +29,15 @@ def data_collection():
     act_buf = []
     save_dir = "high_mpc/Dataset/"
 
-
     ##setting for environment
     plan_T = 2
     plan_dt = 0.1
 
-
-
     so_path = "high_mpc/mpc/saved/mpc_v1.so" # saved mpc model (casadi code generation)
     mpc = MPC(T=plan_T, dt=plan_dt, so_path=so_path)
     env = DynamicGap(mpc, plan_T, plan_dt)
-    num_data_samples = 8000
-    data_path = save_dir + "/obs2_{0}".format(num_data_samples)
+    num_data_samples = 40000
+    data_path = save_dir + "/obs_{0}".format(num_data_samples)
     time_step = 0
     while time_step <= num_data_samples:
         obs = env.reset()
@@ -104,14 +103,14 @@ class Network(nn.Module):
 def train(train_file, val_file, save_weight_path):
     learning_rate = 1e-3
     batch_size = 128
-    num_epochs = 300
+    num_epochs = 450
 
     training_data = Dataset(data_file=train_file)
     validate_data = Dataset(data_file=val_file)
     train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
     val_dataloader = DataLoader(validate_data, batch_size=batch_size, shuffle=False)
 
-    model = Network(num_states=9, num_actions=4)
+    model = Network(num_states=18, num_actions=4)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     loss_fn = nn.MSELoss()
     for ep in range(num_epochs):
@@ -156,7 +155,6 @@ def run_exp(env, nn_model):
         #_, _, _, info = env.step()
         pred_act = nn_model(torch.from_numpy(np.array(obs).astype("float32")))
         pred_act = np.expand_dims(pred_act.detach().numpy(), axis=1)
-        print(pred_act)
         obs, quad_act, terminated, info = env.step_nn(u=0, pred_act=pred_act)
 
 
@@ -171,25 +169,30 @@ def run_exp(env, nn_model):
         yield [info, t, update]
 
 if __name__ == "__main__":
-    data_collect = False
-    training = False
-    run = True
-    if data_collect:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data-collect', action='store_true')
+    parser.add_argument('--training', action='store_true')
+    parser.add_argument('--run', action='store_true')
+
+    args = parser.parse_args()
+
+
+    if args.data_collect:
         data_collection()
-    elif training:
-        train_file = "high_mpc/Dataset/data_20000.npz"
+    elif args.training:
+        train_file = "high_mpc/Dataset/obs2_40000.npz"
         val_file = "high_mpc/Dataset/data_4000.npz"
-        save_weight_path = "high_mpc/mpc/saved/"
+        save_weight_path = "high_mpc/weights/obs2_40k/"
         train(train_file, val_file, save_weight_path)
-    elif run:
+    elif args.run:
         plan_T = 2.0   # Prediction horizon for MPC and local planner
         plan_dt = 0.1 # Sampling time step for MPC and local planner
         so_path = "high_mpc/mpc/saved/mpc_v1.so" # saved mpc model (casadi code generation)
-        save_weight_path = "high_mpc/mpc/saved/" + "ep_280.pth"
+        save_weight_path = "high_mpc/weights/obs2_40k/" + "ep_400.pth"
 
         mpc = MPC(T=plan_T, dt=plan_dt, so_path=so_path)
         env = DynamicGap(mpc, plan_T, plan_dt)
-        nn_model = Network(num_states=9, num_actions=4)
+        nn_model = Network(num_states=18, num_actions=4)
         nn_model.load_state_dict(torch.load(save_weight_path))
 
         #run_exp(env, nn_model)
@@ -201,7 +204,7 @@ if __name__ == "__main__":
         if True:
             writer = animation.writers["ffmpeg"]
             writer = writer(fps=10, metadata=dict(artist='Me'), bitrate=1800)
-            ani.save("high_mpc/mpc/saved/output.mp4", writer=writer)
+            ani.save("high_mpc/mpc/saved/output2.mp4", writer=writer)
 
         plt.tight_layout()
         plt.show()
