@@ -5,7 +5,7 @@
 * The project baseline is based on [high-mpc](https://github.com/uzh-rpg/high_mpc)
 
 ### Update
-* [07/03/2024] I concated quadcopter state and pendulum state to make an input observation with size 18, model reach 0.01 MSE after 400 epoch, quadcopter can learning more accurate action under the guide of MPC and don't fly wildly in the end of each epoch
+* [07/03/2024] I concated quadcopter state and pendulum state to make an input observation with size 18, model reach 0.01 MSE after 400 epoch, quadcopter can learning more accurate action under the guide of MPC and don't fly wildly in the end of each episode
 * [03/02/2024] Initial commit
 * Project is updating and reorganizing
 ### Simulation

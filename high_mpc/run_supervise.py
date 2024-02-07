@@ -201,7 +201,7 @@ if __name__ == "__main__":
         run_frame = partial(run_exp, env, nn_model)
         ani = animation.FuncAnimation(sim_visual.fig, sim_visual.update, frames=run_frame,
             init_func=sim_visual.init_animate, interval=100, blit=True, repeat=False)
-        if True:
+        if False:
             writer = animation.writers["ffmpeg"]
             writer = writer(fps=10, metadata=dict(artist='Me'), bitrate=1800)
             ani.save("high_mpc/mpc/saved/output2.mp4", writer=writer)
